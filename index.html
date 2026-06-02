@@ -5,27 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nicky's English | Writing, Speaking & Games</title>
     <style>
-        /* Load OpenDyslexic Web Font */
-        @import url('https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/popup/opendyslexic.min.css');
+        /* 📜 Injection of Authentic, Verified OpenDyslexic Web Font Engine */
+        @import url('https://unpkg.com/@fontsource/opendyslexic/index.css');
 
         :root {
             --bg-color: #F7F5EE;       
             --text-color: #2D333B;     
-            --primary-accent: #4A6C6F;   /* Teal */
-            --secondary-accent: #D97D54; /* Coral */
-            --game-accent: #7B2CBF;      /* Vibrant Violet */
+            --primary-accent: #4A6C6F;   
+            --secondary-accent: #D97D54; 
+            --game-accent: #7B2CBF;      
             --card-bg: #FFFFFF;
             --header-text: #F7F5EE;
             --footer-bg: #E8E5DA;
             --list-text: #555555;
             
-            /* Dynamic Accessibility Anchors Controlled via JS */
+            /* Responsive Interface Hooks */
             --base-font-size: 16px;
             --base-line-spacing: 1.6;
             --base-letter-spacing: 0px;
         }
 
-        /* Accessibility Modifiers */
         [data-theme="dark"] {
             --bg-color: #1C2128;       
             --text-color: #F0F3F6;     
@@ -44,12 +43,13 @@
             --card-bg: #111111 !important;
             --primary-accent: #00FFFF !important; 
             --secondary-accent: #FFFF00 !important; 
-            --game-accent: #FF00FF !important; /* High-vis Magenta */
+            --game-accent: #FF00FF !important; 
             --header-text: #FFFFFF !important;
             --footer-bg: #111111 !important;
             --list-text: #FFFFFF !important;
         }
 
+        /* Swaps cleanly to the authentic OpenDyslexic family weight rules */
         .dyslexic-font {
             font-family: 'OpenDyslexic', 'Segoe UI', sans-serif !important;
         }
@@ -89,7 +89,6 @@
             font-size: 3rem;
         }
 
-        /* Styled Introduction Block */
         .intro-text {
             max-width: 750px;
             margin: 0 auto;
@@ -99,26 +98,12 @@
             border-radius: 10px;
             font-size: 1.1rem;
         }
-        .intro-text h2 {
-            color: #FFFFFF;
-            margin-top: 0;
-            font-size: 1.5rem;
-        }
-        .intro-text ul {
-            padding-left: 20px;
-            margin: 1rem 0;
-        }
-        .intro-text li {
-            margin-bottom: 0.5rem;
-        }
-        .intro-conclusion {
-            font-weight: bold;
-            margin-top: 1.5rem;
-            text-align: center;
-            display: block;
-        }
+        .intro-text h2 { color: #FFFFFF; margin-top: 0; font-size: 1.5rem; }
+        .intro-text ul { padding-left: 20px; margin: 1rem 0; }
+        .intro-text li { margin-bottom: 0.5rem; }
+        .intro-conclusion { font-weight: bold; margin-top: 1.5rem; text-align: center; display: block; }
 
-        /* Settings Interface Panel */
+        /* ⚙️ Setting UI Layout */
         .settings-container {
             position: absolute;
             top: 20px;
@@ -131,15 +116,13 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: var(--header-text);
             font-size: 1rem;
-            padding: 8px 15px;
+            padding: 8px 18px;
             border-radius: 20px;
             cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
+            transition: background 0.2s;
         }
 
-        .settings-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
+        .settings-btn:hover { background: rgba(255, 255, 255, 0.25); }
 
         .settings-dropdown {
             display: none;
@@ -147,20 +130,18 @@
             right: 0;
             top: 45px;
             background-color: var(--card-bg);
-            width: 280px;
+            width: 320px;
             max-height: 80vh;
             overflow-y: auto;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            z-index: 100;
-            padding: 15px 0;
-            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            z-index: 1000;
+            padding: 20px 0;
+            border: 1px solid rgba(0,0,0,0.08);
             text-align: left;
         }
 
-        .settings-dropdown.show {
-            display: block;
-        }
+        .settings-dropdown.show { display: block; }
 
         .settings-section-title {
             padding: 5px 20px;
@@ -172,32 +153,42 @@
         }
 
         .settings-item {
-            padding: 8px 20px;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             color: var(--text-color);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
-        .settings-item label { flex: 1; }
-        .settings-item input[type="range"] {
-            width: 100px;
+        /* Full width utility alignment updates */
+        .settings-item.row-layout {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .settings-item label { width: 100%; display: flex; justify-content: space-between; }
+
+        /* Custom 5-Step Slider Track Styling */
+        .step-slider {
+            width: 100%;
+            margin: 5px 0;
             accent-color: var(--secondary-accent);
         }
 
         .settings-divider {
             height: 1px;
-            background-color: rgba(0,0,0,0.1);
-            margin: 10px 0;
+            background-color: rgba(0,0,0,0.08);
+            margin: 12px 0;
         }
 
-        /* Toggle Switches */
+        /* Full-Width Switcher Toggles */
         .switch {
             position: relative;
             display: inline-block;
-            width: 40px;
-            height: 20px;
+            width: 46px;
+            height: 24px;
         }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider {
@@ -206,32 +197,34 @@
             top: 0; left: 0; right: 0; bottom: 0;
             background-color: #ccc;
             transition: .3s;
-            border-radius: 20px;
+            border-radius: 24px;
         }
         .slider:before {
             position: absolute;
             content: "";
-            height: 14px; width: 14px;
+            height: 18px; width: 18px;
             left: 3px; bottom: 3px;
             background-color: white;
             transition: .3s;
             border-radius: 50%;
         }
         input:checked + .slider { background-color: var(--secondary-accent); }
-        input:checked + .slider:before { transform: translateX(20px); }
+        input:checked + .slider:before { transform: translateX(22px); }
 
-        /* ADHD Reading Mask Overlay Component */
-        #readingMask {
+        /* 👁️ Robust ADHD Reading Mask System Panels */
+        .mask-overlay {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; 
-            z-index: 9999;
-            background: rgba(0, 0, 0, 0.4);
-            clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% var(--mask-top, 45%), 100% var(--mask-top, 45%), 100% var(--mask-bottom, 55%), 0% var(--mask-bottom, 55%), 0% var(--mask-top, 45%));
+            left: 0;
+            width: 100vw;
+            background: rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            z-index: 99999;
         }
+        #maskTop { top: 0; height: 0px; }
+        #maskBottom { bottom: 0; top: auto; height: 100vh; }
 
-        /* Workspace Grid Layout */
+        /* Main Workspace Section Mechanics */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -306,7 +299,9 @@
 </head>
 <body>
 
-    <div id="readingMask"></div>
+    <!-- Split Viewports configuration for completely reliable background occlusion -->
+    <div id="maskTop" class="mask-overlay"></div>
+    <div id="maskBottom" class="mask-overlay"></div>
 
     <header>
         <h1>Nicky's English</h1>
@@ -325,8 +320,9 @@
             <span class="intro-conclusion">Whether you're preparing for university, work, or just want to build confidence in English — start learning today!</span>
         </div>
 
+        <!-- ⚙️ Settings Trigger Action Hook -->
         <div class="settings-container">
-            <button class="settings-btn" id="settingsToggle" aria-label="Accessibility options">⚙️ Settings Menu</button>
+            <button class="settings-btn" id="settingsToggle" aria-label="Accessibility options">⚙️ Setting</button>
             <div class="settings-dropdown" id="settingsDropdown">
                 
                 <div class="settings-section-title">Visual Styling</div>
@@ -344,9 +340,9 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                <div class="settings-item">
-                    <label for="saturationSlider">Color Saturation</label>
-                    <input type="range" id="saturationSlider" min="0" max="200" value="100">
+                <div class="settings-item row-layout">
+                    <label><span>Color Saturation</span><span id="saturationVal">100%</span></label>
+                    <input type="range" id="saturationSlider" class="step-slider" min="1" max="5" value="3">
                 </div>
 
                 <div class="settings-divider"></div>
@@ -358,23 +354,23 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                <div class="settings-item">
-                    <label for="sizeSlider">Text Resize (300%)</label>
-                    <input type="range" id="sizeSlider" min="16" max="48" value="16">
+                <div class="settings-item row-layout">
+                    <label><span>Text Resize</span><span id="sizeVal">100%</span></label>
+                    <input type="range" id="sizeSlider" class="step-slider" min="1" max="5" value="1">
                 </div>
-                <div class="settings-item">
-                    <label for="lineSpacingSlider">Line Spacing</label>
-                    <input type="range" id="lineSpacingSlider" min="12" max="30" value="16">
+                <div class="settings-item row-layout">
+                    <label><span>Line Spacing</span><span id="lineVal">Normal</span></label>
+                    <input type="range" id="lineSpacingSlider" class="step-slider" min="1" max="5" value="2">
                 </div>
-                <div class="settings-item">
-                    <label for="letterSpacingSlider">Letter Spacing</label>
-                    <input type="range" id="letterSpacingSlider" min="0" max="10" value="0">
+                <div class="settings-item row-layout">
+                    <label><span>Letter Spacing</span><span id="letterVal">0px</span></label>
+                    <input type="range" id="letterSpacingSlider" class="step-slider" min="1" max="5" value="1">
                 </div>
 
                 <div class="settings-divider"></div>
                 <div class="settings-section-title">Focus Assistance</div>
                 <div class="settings-item">
-                    <span>Reading Mask (ADHD)</span>
+                    <span>Reading Mask</span>
                     <label class="switch">
                         <input type="checkbox" id="readingMaskCheckbox">
                         <span class="slider"></span>
@@ -390,6 +386,7 @@
 
         <div class="skills-section">
             
+            <!-- ✍️ Writing Box -->
             <div class="skill-box">
                 <div>
                     <h2>✍️ The Writing Studio</h2>
@@ -403,6 +400,7 @@
                 <a href="writing.html" class="button">Go to Writing Studio</a>
             </div>
 
+            <!-- 🗣️ Speaking Box -->
             <div class="skill-box speaking">
                 <div>
                     <h2 style="color: var(--secondary-accent);">🗣️ The Speaking Lounge</h2>
@@ -416,6 +414,7 @@
                 <a href="speaking.html" class="button speaking-btn">Go to Speaking Lounge</a>
             </div>
 
+            <!-- 🎮 Game Zone Box -->
             <div class="skill-box game">
                 <div>
                     <h2>🎮 The Game Zone</h2>
@@ -426,7 +425,8 @@
                         <li>Idiom crossword builders</li>
                     </ul>
                 </div>
-                <a href="games.html" class="button game-btn">Go to Game Zone</a>
+                <!-- Connected destination target link -->
+                <a href="game.html" class="button game-btn">Go to Game Zone</a>
             </div>
 
         </div>
@@ -459,35 +459,52 @@
             document.body.classList.toggle('dyslexic-font', e.target.checked);
         });
 
-        document.getElementById('sizeSlider').addEventListener('input', (e) => {
-            document.documentElement.style.setProperty('--base-font-size', `${e.target.value}px`);
-        });
-
-        document.getElementById('lineSpacingSlider').addEventListener('input', (e) => {
-            document.documentElement.style.setProperty('--base-line-spacing', e.target.value / 10);
-        });
-
-        document.getElementById('letterSpacingSlider').addEventListener('input', (e) => {
-            document.documentElement.style.setProperty('--base-letter-spacing', `${e.target.value}px`);
-        });
-
+        // 📊 Math Maps representing 5 distinct intervals (0% to 100% or equivalents)
+        const saturationMap = { 1: "0%", 2: "50%", 3: "100%", 4: "150%", 5: "200%" };
         document.getElementById('saturationSlider').addEventListener('input', (e) => {
-            document.body.style.filter = `saturate(${e.target.value}%)`;
+            const val = saturationMap[e.target.value];
+            document.getElementById('saturationVal').innerText = val;
+            document.body.style.filter = `saturate(${val})`;
         });
 
-        const readingMask = document.getElementById('readingMask');
+        const sizeMap = { 1: "16px", 2: "24px", 3: "32px", 4: "40px", 5: "48px" };
+        const sizePctMap = { 1: "100%", 2: "150%", 3: "200%", 4: "250%", 5: "300%" };
+        document.getElementById('sizeSlider').addEventListener('input', (e) => {
+            document.getElementById('sizeVal').innerText = sizePctMap[e.target.value];
+            document.documentElement.style.setProperty('--base-font-size', sizeMap[e.target.value]);
+        });
+
+        const lineMap = { 1: "1.2", 2: "1.6", 3: "2.0", 4: "2.4", 5: "2.8" };
+        const lineTextMap = { 1: "Tight", 2: "Normal", 3: "Relaxed", 4: "Wide", 5: "Extra Wide" };
+        document.getElementById('lineSpacingSlider').addEventListener('input', (e) => {
+            document.getElementById('lineVal').innerText = lineTextMap[e.target.value];
+            document.documentElement.style.setProperty('--base-line-spacing', lineMap[e.target.value]);
+        });
+
+        const letterMap = { 1: "0px", 2: "2px", 3: "4px", 4: "6px", 5: "8px" };
+        document.getElementById('letterSpacingSlider').addEventListener('input', (e) => {
+            document.getElementById('letterVal').innerText = letterMap[e.target.value];
+            document.documentElement.style.setProperty('--base-letter-spacing', letterMap[e.target.value]);
+        });
+
+        // 👁️ High Stability Dual-Panel Reading Focus Mask Engine
+        const maskTop = document.getElementById('maskTop');
+        const maskBottom = document.getElementById('maskBottom');
         const readingMaskCheckbox = document.getElementById('readingMaskCheckbox');
 
         readingMaskCheckbox.addEventListener('change', (e) => {
-            readingMask.style.display = e.target.checked ? 'block' : 'none';
+            const displayMode = e.target.checked ? 'block' : 'none';
+            maskTop.style.display = displayMode;
+            maskBottom.style.display = displayMode;
         });
 
         window.addEventListener('mousemove', (e) => {
             if (readingMaskCheckbox.checked) {
-                const windowHeight = window.innerHeight;
-                const mouseYPercentage = (e.clientY / windowHeight) * 100;
-                document.documentElement.style.setProperty('--mask-top', `${mouseYPercentage - 4}%`);
-                document.documentElement.style.setProperty('--mask-bottom', `${mouseYPercentage + 4}%`);
+                const cursorY = e.clientY;
+                const gapHalfHeight = 35; // Total dynamic text track target view window space width (70px total)
+
+                maskTop.style.height = `${Math.max(0, cursorY - gapHalfHeight)}px`;
+                maskBottom.style.top = `${cursorY + gapHalfHeight}px`;
             }
         });
     </script>
