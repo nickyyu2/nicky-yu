@@ -3,14 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina English | Writing & Speaking</title>
+    <title>Nicky's English | Writing & Speaking</title>
     <style>
+        /* Load OpenDyslexic Web Font */
+        @import url('https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/popup/opendyslexic.min.css');
+
         :root {
             --bg-color: #F7F5EE;       
             --text-color: #2D333B;     
             --primary-accent: #4A6C6F; 
             --secondary-accent: #D97D54; 
             --card-bg: #FFFFFF;
+            --header-text: #F7F5EE;
+            --footer-bg: #E8E5DA;
+            --list-text: #555555;
+            
+            /* Dynamic Accessibility Anchors Controlled via JS */
+            --base-font-size: 16px;
+            --base-line-spacing: 1.6;
+            --base-letter-spacing: 0px;
+        }
+
+        /* Accessibility Modifiers */
+        [data-theme="dark"] {
+            --bg-color: #1C2128;       
+            --text-color: #F0F3F6;     
+            --primary-accent: #629296; 
+            --secondary-accent: #E38E68; 
+            --card-bg: #22272E;
+            --header-text: #F0F3F6;
+            --footer-bg: #2D333B;
+            --list-text: #ADB5BD;
+        }
+
+        [data-contrast="high"] {
+            --bg-color: #000000 !important;
+            --text-color: #FFFFFF !important;
+            --card-bg: #111111 !important;
+            --primary-accent: #00FFFF !important; /* High vis cyan */
+            --secondary-accent: #FFFF00 !important; /* High vis yellow */
+            --header-text: #FFFFFF !important;
+            --footer-bg: #111111 !important;
+            --list-text: #FFFFFF !important;
+        }
+
+        .dyslexic-font {
+            font-family: 'OpenDyslexic', 'Segoe UI', sans-serif !important;
         }
 
         body {
@@ -19,24 +57,31 @@
             color: var(--text-color);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            font-size: var(--base-font-size);
+            line-height: var(--base-line-spacing);
+            letter-spacing: var(--base-letter-spacing);
+            transition: background-color 0.3s, color 0.3s;
         }
 
         h1, h2, h3 {
             font-family: 'Georgia', serif;
             color: var(--primary-accent);
         }
+        .dyslexic-font h1, .dyslexic-font h2, .dyslexic-font h3 {
+            font-family: 'OpenDyslexic', sans-serif !important;
+        }
 
         header {
+            position: relative;
             background-color: var(--primary-accent);
-            color: #F7F5EE;
+            color: var(--header-text);
             padding: 2rem 5%;
             text-align: center;
             border-bottom: 5px solid var(--secondary-accent);
         }
 
         header h1 {
-            color: #F7F5EE;
+            color: var(--header-text);
             margin: 0;
             font-size: 2.5rem;
         }
@@ -46,6 +91,128 @@
             opacity: 0.9;
         }
 
+        /* ⚙️ Expanded Settings Interface Panel */
+        .settings-container {
+            position: absolute;
+            top: 20px;
+            right: 5%;
+            display: inline-block;
+        }
+
+        .settings-btn {
+            background: none;
+            border: none;
+            color: var(--header-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .settings-btn:hover {
+            transform: rotate(45deg);
+            opacity: 1;
+        }
+
+        .settings-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 35px;
+            background-color: var(--card-bg);
+            width: 280px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 100;
+            padding: 15px 0;
+            border: 1px solid rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .settings-dropdown.show {
+            display: block;
+        }
+
+        .settings-section-title {
+            padding: 5px 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--secondary-accent);
+            letter-spacing: 1px;
+        }
+
+        .settings-item {
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .settings-item label {
+            flex: 1;
+        }
+
+        .settings-item input[type="range"] {
+            width: 100px;
+            accent-color: var(--secondary-accent);
+        }
+
+        .settings-divider {
+            height: 1px;
+            background-color: rgba(0,0,0,0.1);
+            margin: 10px 0;
+        }
+
+        /* Toggle Switches */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+
+        .switch input { opacity: 0; width: 0; height: 0; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .3s;
+            border-radius: 20px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px; width: 14px;
+            left: 3px; bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider { background-color: var(--secondary-accent); }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        /* 👁️ Reading Mask Feature Overlay */
+        #readingMask {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; /* Let clicks pass straight through */
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.4);
+            /* Soft focus clip window targeting cursor line position */
+            clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% var(--mask-top, 45%), 100% var(--mask-top, 45%), 100% var(--mask-bottom, 55%), 0% var(--mask-bottom, 55%), 0% var(--mask-top, 45%));
+        }
+
+        /* Workspace Grid Container Layout */
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -84,14 +251,12 @@
             border-top: 5px solid var(--secondary-accent);
         }
 
-        .skill-box h2 {
-            margin-top: 0;
-        }
+        .skill-box h2 { margin-top: 0; }
 
         .skill-box ul {
             text-align: left;
             margin-bottom: 2rem;
-            color: #555;
+            color: var(--list-text);
         }
 
         .button {
@@ -102,51 +267,105 @@
             text-decoration: none;
             border-radius: 25px;
             font-weight: bold;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s, opacity 0.2s;
         }
 
-        .button.speaking-btn {
-            background-color: var(--secondary-accent);
-        }
-
-        .button:hover {
-            opacity: 0.9;
-        }
+        .button.speaking-btn { background-color: var(--secondary-accent); }
+        .button:hover { opacity: 0.9; }
 
         footer {
             text-align: center;
             padding: 2rem;
             margin-top: 4rem;
-            background-color: #E8E5DA;
+            background-color: var(--footer-bg);
             font-size: 0.9rem;
-            color: #555;
+            color: var(--list-text);
         }
     </style>
 </head>
 <body>
 
+    <div id="readingMask"></div>
+
     <header>
-        <h1>Lumina English</h1>
-        <p>A complete journey to fluency.</p>
+        <h1>Nicky's English</h1>
+        <p>Designed by Nicky with the assistance of AI.</p>
+
+        <div class="settings-container">
+            <button class="settings-btn" id="settingsToggle" aria-label="Accessibility options">⚙️ Options</button>
+            <div class="settings-dropdown" id="settingsDropdown">
+                
+                <div class="settings-section-title">Visual Styling</div>
+                <div class="settings-item">
+                    <span>Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeCheckbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <span>High Contrast</span>
+                    <label class="switch">
+                        <input type="checkbox" id="highContrastCheckbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <label for="saturationSlider">Color Saturation</label>
+                    <input type="range" id="saturationSlider" min="0" max="200" value="100">
+                </div>
+
+                <div class="settings-divider"></div>
+                <div class="settings-section-title">Typography & Layout</div>
+                <div class="settings-item">
+                    <span>OpenDyslexic Font</span>
+                    <label class="switch">
+                        <input type="checkbox" id="dyslexicCheckbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <label for="sizeSlider">Text Resize (300%)</label>
+                    <input type="range" id="sizeSlider" min="16" max="48" value="16">
+                </div>
+                <div class="settings-item">
+                    <label for="lineSpacingSlider">Line Spacing</label>
+                    <input type="range" id="lineSpacingSlider" min="12" max="30" value="16">
+                </div>
+                <div class="settings-item">
+                    <label for="letterSpacingSlider">Letter Spacing</label>
+                    <input type="range" id="letterSpacingSlider" min="0" max="10" value="0">
+                </div>
+
+                <div class="settings-divider"></div>
+                <div class="settings-section-title">Focus Assistance</div>
+                <div class="settings-item">
+                    <span>Reading Mask (ADHD)</span>
+                    <label class="switch">
+                        <input type="checkbox" id="readingMaskCheckbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+            </div>
+        </div>
     </header>
 
     <div class="container">
-        
         <h2 class="section-title">What would you like to practice today?</h2>
 
         <div class="skills-section">
-            
             <div class="skill-box">
                 <div>
                     <h2>✍️ The Writing Studio</h2>
-                    <p>Sharpen your pen. Practice everything from writing basic emails to structuring complex academic essays.</p>
+                    <p>Sharpen your pen. Practice everything from writing basic emails to structuring complex evaluation report.</p>
                     <ul>
                         <li>Grammar & Syntax feedback</li>
                         <li>Essay structuring guides</li>
                         <li>Creative writing prompts</li>
                     </ul>
                 </div>
-                <a href="#" class="button">Go to Writing Studio</a>
+                <a href="writing.html" class="button">Go to Writing Studio</a>
             </div>
 
             <div class="skill-box speaking">
@@ -156,12 +375,11 @@
                     <ul>
                         <li>Pronunciation drills</li>
                         <li>Everyday dialogue practice</li>
-                        <li>Public speaking preparation</li>
+                        <li>Speaking exam preparation</li>
                     </ul>
                 </div>
-                <a href="#" class="button speaking-btn">Go to Speaking Lounge</a>
+                <a href="speaking.html" class="button speaking-btn">Go to Speaking Lounge</a>
             </div>
-
         </div>
     </div>
 
@@ -169,5 +387,5 @@
         <p>Made by AI, assisted by Nicky Yu from CWLC/IVE</p>
     </footer>
 
-</body>
-</html>
+    <script>
+        const settingsToggle = document.getElementById('
