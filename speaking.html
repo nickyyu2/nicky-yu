@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina English | Speaking Lounge</title>
+    <style>
+        :root {
+            --bg-color: #F7F5EE;       
+            --text-color: #2D333B;     
+            --secondary-accent: #D97D54; /* Coral */
+            --card-bg: #FFFFFF;
+            --panel-bg: #E8E5DA;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: var(--secondary-accent);
+            color: #F7F5EE;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 5px solid #b8623b;
+        }
+
+        header h1 {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .btn-back {
+            color: #F7F5EE;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid #F7F5EE;
+            padding: 6px 15px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .btn-back:hover {
+            background-color: #F7F5EE;
+            color: var(--secondary-accent);
+        }
+
+        .workspace {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .interactive-panel {
+            flex: 3;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .feedback-panel {
+            flex: 2;
+            background-color: var(--panel-bg);
+            border-left: 2px solid rgba(0,0,0,0.05);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow-y: auto;
+        }
+
+        h2, h3 {
+            font-family: 'Georgia', serif;
+            color: var(--secondary-accent);
+            margin-top: 0;
+        }
+
+        .mic-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--secondary-accent);
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .mic-btn {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--secondary-accent);
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mic-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(217, 125, 84, 0.4);
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        ul {
+            padding-left: 20px;
+            color: #555;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🗣️ Lumina Speaking Lounge</h1>
+        <a href="index.html" class="btn-back">← Back to Dashboard</a>
+    </header>
+
+    <div class="workspace">
+        <div class="interactive-panel">
+            <div class="mic-card">
+                <h2>Interactive Scenario</h2>
+                <h3 style="color: #555; font-family: inherit;">Topic: At the Coffee Shop</h3>
+                <p style="color: #666; font-style: italic; font-size: 1.2rem; margin: 1.5rem 0;">
+                    "Hi there! What can I get started for you today?"
+                </p>
+                <p>Click the microphone below to respond with your speech draft.</p>
+                <button class="mic-btn">🎙️</button>
+            </div>
+        </div>
+
+        <div class="feedback-panel">
+            <h2>Acoustic Feedback</h2>
+            <div class="card">
+                <h3>📊 Pronunciation Analyzer</h3>
+                <p style="color: #666;">Activate your microphone asset to view breakdown scores focusing on speed, intonation rhythm, and word articulation.</p>
+            </div>
+            <div class="card">
+                <h3>💬 Recommended Responses</h3>
+                <ul>
+                    <li><em>"Can I get a medium iced latte to go, please?"</em></li>
+                    <li><em>"Could I have an extra shot of espresso?"</em></li>
+                    <li><em>"Is there an extra charge for alternative oat milk?"</em></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

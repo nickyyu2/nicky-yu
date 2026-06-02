@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina English | Writing Studio</title>
+    <style>
+        :root {
+            --bg-color: #F7F5EE;       
+            --text-color: #2D333B;     
+            --primary-accent: #4A6C6F; /* Teal */
+            --card-bg: #FFFFFF;
+            --panel-bg: #E8E5DA;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: var(--primary-accent);
+            color: #F7F5EE;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 5px solid #3d595c;
+        }
+
+        header h1 {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .btn-back {
+            color: #F7F5EE;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid #F7F5EE;
+            padding: 6px 15px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .btn-back:hover {
+            background-color: #F7F5EE;
+            color: var(--primary-accent);
+        }
+
+        .workspace {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .interactive-panel {
+            flex: 3;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .feedback-panel {
+            flex: 2;
+            background-color: var(--panel-bg);
+            border-left: 2px solid rgba(0,0,0,0.05);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow-y: auto;
+        }
+
+        h2, h3 {
+            font-family: 'Georgia', serif;
+            color: var(--primary-accent);
+            margin-top: 0;
+        }
+
+        .writing-input {
+            width: 100%;
+            flex: 1;
+            padding: 1.5rem;
+            border: 2px solid #E8E5DA;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            resize: none;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .writing-input:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        ul {
+            padding-left: 20px;
+            color: #555;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>✍️ Lumina Writing Studio</h1>
+        <a href="index.html" class="btn-back">← Back to Dashboard</a>
+    </header>
+
+    <div class="workspace">
+        <div class="interactive-panel">
+            <h2>The Writing Desk</h2>
+            <div class="card" style="border-left: 4px solid var(--primary-accent);">
+                <p style="margin: 0;"><strong>Active Prompt:</strong> Write a short email to your professor requesting an extension on your final assignment.</p>
+            </div>
+            <textarea class="writing-input" placeholder="Compose your response here..."></textarea>
+        </div>
+
+        <div class="feedback-panel">
+            <h2>AI Coach Feedback</h2>
+            <div class="card">
+                <h3>✨ Live Suggestions</h3>
+                <p style="color: #666; font-style: italic;">No input text detected yet. Begin writing on the left grid to view dynamic sentence styling or structural corrections.</p>
+            </div>
+            <div class="card">
+                <h3>💡 Quick Guide: Formal Emails</h3>
+                <ul>
+                    <li>Start with an appropriate formal salutation (e.g., <em>Dear Professor Smith</em>).</li>
+                    <li>State your primary request layout within the first two sentences.</li>
+                    <li>Always close with an appreciation phrase (e.g., <em>Thank you for your time and understanding</em>).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
