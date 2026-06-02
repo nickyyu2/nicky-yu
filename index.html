@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nicky's English | Writing & Speaking</title>
+    <title>Nicky's English | Writing, Speaking & Games</title>
     <style>
         /* Load OpenDyslexic Web Font */
         @import url('https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/popup/opendyslexic.min.css');
@@ -11,8 +11,9 @@
         :root {
             --bg-color: #F7F5EE;       
             --text-color: #2D333B;     
-            --primary-accent: #4A6C6F; 
-            --secondary-accent: #D97D54; 
+            --primary-accent: #4A6C6F;   /* Teal */
+            --secondary-accent: #D97D54; /* Coral */
+            --game-accent: #7B2CBF;      /* Vibrant Violet */
             --card-bg: #FFFFFF;
             --header-text: #F7F5EE;
             --footer-bg: #E8E5DA;
@@ -30,6 +31,7 @@
             --text-color: #F0F3F6;     
             --primary-accent: #629296; 
             --secondary-accent: #E38E68; 
+            --game-accent: #9D4EDD;
             --card-bg: #22272E;
             --header-text: #F0F3F6;
             --footer-bg: #2D333B;
@@ -40,8 +42,9 @@
             --bg-color: #000000 !important;
             --text-color: #FFFFFF !important;
             --card-bg: #111111 !important;
-            --primary-accent: #00FFFF !important; /* High vis cyan */
-            --secondary-accent: #FFFF00 !important; /* High vis yellow */
+            --primary-accent: #00FFFF !important; 
+            --secondary-accent: #FFFF00 !important; 
+            --game-accent: #FF00FF !important; /* High-vis Magenta */
             --header-text: #FFFFFF !important;
             --footer-bg: #111111 !important;
             --list-text: #FFFFFF !important;
@@ -75,23 +78,47 @@
             position: relative;
             background-color: var(--primary-accent);
             color: var(--header-text);
-            padding: 2rem 5%;
+            padding: 3rem 5%;
             text-align: center;
             border-bottom: 5px solid var(--secondary-accent);
         }
 
         header h1 {
             color: var(--header-text);
-            margin: 0;
-            font-size: 2.5rem;
+            margin: 0 0 1rem 0;
+            font-size: 3rem;
         }
 
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+        /* Styled Introduction Block */
+        .intro-text {
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        .intro-text h2 {
+            color: #FFFFFF;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        .intro-text ul {
+            padding-left: 20px;
+            margin: 1rem 0;
+        }
+        .intro-text li {
+            margin-bottom: 0.5rem;
+        }
+        .intro-conclusion {
+            font-weight: bold;
+            margin-top: 1.5rem;
+            text-align: center;
+            display: block;
         }
 
-        /* ⚙️ Expanded Settings Interface Panel */
+        /* Settings Interface Panel */
         .settings-container {
             position: absolute;
             top: 20px;
@@ -100,25 +127,25 @@
         }
 
         .settings-btn {
-            background: none;
-            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: var(--header-text);
-            font-size: 1.5rem;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 20px;
             cursor: pointer;
-            opacity: 0.8;
-            transition: transform 0.2s, opacity 0.2s;
+            transition: transform 0.2s, background 0.2s;
         }
 
         .settings-btn:hover {
-            transform: rotate(45deg);
-            opacity: 1;
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .settings-dropdown {
             display: none;
             position: absolute;
             right: 0;
-            top: 35px;
+            top: 45px;
             background-color: var(--card-bg);
             width: 280px;
             max-height: 80vh;
@@ -153,10 +180,7 @@
             font-size: 0.9rem;
         }
 
-        .settings-item label {
-            flex: 1;
-        }
-
+        .settings-item label { flex: 1; }
         .settings-item input[type="range"] {
             width: 100px;
             accent-color: var(--secondary-accent);
@@ -175,9 +199,7 @@
             width: 40px;
             height: 20px;
         }
-
         .switch input { opacity: 0; width: 0; height: 0; }
-
         .slider {
             position: absolute;
             cursor: pointer;
@@ -186,7 +208,6 @@
             transition: .3s;
             border-radius: 20px;
         }
-
         .slider:before {
             position: absolute;
             content: "";
@@ -196,25 +217,23 @@
             transition: .3s;
             border-radius: 50%;
         }
-
         input:checked + .slider { background-color: var(--secondary-accent); }
         input:checked + .slider:before { transform: translateX(20px); }
 
-        /* 👁️ Reading Mask Feature Overlay */
+        /* ADHD Reading Mask Overlay Component */
         #readingMask {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; /* Let clicks pass straight through */
+            pointer-events: none; 
             z-index: 9999;
             background: rgba(0, 0, 0, 0.4);
-            /* Soft focus clip window targeting cursor line position */
             clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% var(--mask-top, 45%), 100% var(--mask-top, 45%), 100% var(--mask-bottom, 55%), 0% var(--mask-bottom, 55%), 0% var(--mask-top, 45%));
         }
 
-        /* Workspace Grid Container Layout */
+        /* Workspace Grid Layout */
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -228,16 +247,16 @@
         .skills-section {
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 25px;
             margin-top: 2rem;
         }
 
         .skill-box {
             flex: 1;
-            min-width: 300px;
+            min-width: 280px;
             background-color: var(--card-bg);
             color: var(--text-color);
-            padding: 3rem 2rem;
+            padding: 2.5rem 2rem;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             text-align: center;
@@ -245,13 +264,14 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        .skill-box.speaking {
-            border-top: 5px solid var(--secondary-accent);
-        }
+        .skill-box.speaking { border-top: 5px solid var(--secondary-accent); }
+        .skill-box.game { border-top: 5px solid var(--game-accent); }
 
         .skill-box h2 { margin-top: 0; }
+        .skill-box.game h2 { color: var(--game-accent); }
 
         .skill-box ul {
             text-align: left;
@@ -271,6 +291,7 @@
         }
 
         .button.speaking-btn { background-color: var(--secondary-accent); }
+        .button.game-btn { background-color: var(--game-accent); }
         .button:hover { opacity: 0.9; }
 
         footer {
@@ -289,10 +310,23 @@
 
     <header>
         <h1>Nicky's English</h1>
-        <p>Designed by Nicky with the assistance of AI.</p>
+        
+        <div class="intro-text">
+            <h2>Welcome to Nicky's English!</h2>
+            <p>Here's what you can do on this website:</p>
+            <ul>
+                <li><strong>Practice English speaking</strong> with interactive exercises and pronunciation tips</li>
+                <li><strong>Improve your writing</strong> with lessons on vocational and professional writing - conventions</li>
+                <li><strong>Learn grammar and vocabulary</strong> through engaging activities and examples</li>
+                <li><strong>Test your skills</strong> with quizzes and self-assessment tools</li>
+                <li><strong>Access learning resources</strong> including worksheets, guides, and practice materials</li>
+                <li><strong>Track your progress</strong> as you work through lessons</li>
+            </ul>
+            <span class="intro-conclusion">Whether you're preparing for university, work, or just want to build confidence in English — start learning today!</span>
+        </div>
 
         <div class="settings-container">
-            <button class="settings-btn" id="settingsToggle" aria-label="Accessibility options">⚙️ Options</button>
+            <button class="settings-btn" id="settingsToggle" aria-label="Accessibility options">⚙️ Settings Menu</button>
             <div class="settings-dropdown" id="settingsDropdown">
                 
                 <div class="settings-section-title">Visual Styling</div>
@@ -355,6 +389,7 @@
         <h2 class="section-title">What would you like to practice today?</h2>
 
         <div class="skills-section">
+            
             <div class="skill-box">
                 <div>
                     <h2>✍️ The Writing Studio</h2>
@@ -380,12 +415,81 @@
                 </div>
                 <a href="speaking.html" class="button speaking-btn">Go to Speaking Lounge</a>
             </div>
+
+            <div class="skill-box game">
+                <div>
+                    <h2>🎮 The Game Zone</h2>
+                    <p>Learn through play. Formulate core vocabulary foundations and perfect your sentence architecture using gamified challenges.</p>
+                    <ul>
+                        <li>Grammar speed runs</li>
+                        <li>Vocabulary match master</li>
+                        <li>Idiom crossword builders</li>
+                    </ul>
+                </div>
+                <a href="games.html" class="button game-btn">Go to Game Zone</a>
+            </div>
+
         </div>
     </div>
 
     <footer>
-        <p>Made by AI, assisted by Nicky Yu from CWLC/IVE</p>
+        <p>Designed by Nicky Yu from CWLC/IVE with the assistance of AI.</p>
     </footer>
 
     <script>
-        const settingsToggle = document.getElementById('
+        const settingsToggle = document.getElementById('settingsToggle');
+        const settingsDropdown = document.getElementById('settingsDropdown');
+        
+        settingsToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            settingsDropdown.classList.toggle('show');
+        });
+        window.addEventListener('click', () => { settingsDropdown.classList.remove('show'); });
+        settingsDropdown.addEventListener('click', (e) => { e.stopPropagation(); });
+
+        document.getElementById('darkModeCheckbox').addEventListener('change', (e) => {
+            document.documentElement.setAttribute('data-theme', e.target.checked ? 'dark' : 'light');
+        });
+
+        document.getElementById('highContrastCheckbox').addEventListener('change', (e) => {
+            document.documentElement.setAttribute('data-contrast', e.target.checked ? 'high' : 'normal');
+        });
+
+        document.getElementById('dyslexicCheckbox').addEventListener('change', (e) => {
+            document.body.classList.toggle('dyslexic-font', e.target.checked);
+        });
+
+        document.getElementById('sizeSlider').addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--base-font-size', `${e.target.value}px`);
+        });
+
+        document.getElementById('lineSpacingSlider').addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--base-line-spacing', e.target.value / 10);
+        });
+
+        document.getElementById('letterSpacingSlider').addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--base-letter-spacing', `${e.target.value}px`);
+        });
+
+        document.getElementById('saturationSlider').addEventListener('input', (e) => {
+            document.body.style.filter = `saturate(${e.target.value}%)`;
+        });
+
+        const readingMask = document.getElementById('readingMask');
+        const readingMaskCheckbox = document.getElementById('readingMaskCheckbox');
+
+        readingMaskCheckbox.addEventListener('change', (e) => {
+            readingMask.style.display = e.target.checked ? 'block' : 'none';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (readingMaskCheckbox.checked) {
+                const windowHeight = window.innerHeight;
+                const mouseYPercentage = (e.clientY / windowHeight) * 100;
+                document.documentElement.style.setProperty('--mask-top', `${mouseYPercentage - 4}%`);
+                document.documentElement.style.setProperty('--mask-bottom', `${mouseYPercentage + 4}%`);
+            }
+        });
+    </script>
+</body>
+</html>
