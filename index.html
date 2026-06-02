@@ -49,7 +49,6 @@
             --list-text: #FFFFFF !important;
         }
 
-        /* Swaps cleanly to the authentic OpenDyslexic family weight rules */
         .dyslexic-font {
             font-family: 'OpenDyslexic', 'Segoe UI', sans-serif !important;
         }
@@ -103,7 +102,7 @@
         .intro-text li { margin-bottom: 0.5rem; }
         .intro-conclusion { font-weight: bold; margin-top: 1.5rem; text-align: center; display: block; }
 
-        /* ⚙️ Setting UI Layout */
+        /* ⚙️ Setting UI Layout (Fully Edge-to-Edge Optimized) */
         .settings-container {
             position: absolute;
             top: 20px;
@@ -139,6 +138,7 @@
             padding: 20px 0;
             border: 1px solid rgba(0,0,0,0.08);
             text-align: left;
+            box-sizing: border-box;
         }
 
         .settings-dropdown.show { display: block; }
@@ -159,36 +159,75 @@
             align-items: center;
             color: var(--text-color);
             font-size: 0.95rem;
+            box-sizing: border-box;
+            width: 100%;
         }
 
-        /* Full width utility alignment updates */
+        /* Changes padding to margins for sliders so tracks can hit the absolute edge */
         .settings-item.row-layout {
             flex-direction: column;
-            align-items: flex-start;
-            gap: 8px;
+            align-items: stretch;
+            gap: 6px;
+            padding: 10px 0;
+            margin: 0 20px;
+            width: calc(100% - 40px);
         }
 
-        .settings-item label { width: 100%; display: flex; justify-content: space-between; }
+        .settings-item label { 
+            width: 100%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
 
-        /* Custom 5-Step Slider Track Styling */
+        /* Overrides native browser engine caps on slider tracks */
         .step-slider {
-            width: 100%;
-            margin: 5px 0;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100% !important;
+            height: 6px;
+            border-radius: 3px;
+            background: #ccc;
+            margin: 8px 0;
             accent-color: var(--secondary-accent);
+            display: block;
+            box-sizing: border-box;
+        }
+
+        /* Webkit Thumb track target alignment fixes */
+        .step-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--secondary-accent);
+            cursor: pointer;
+        }
+
+        .step-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--secondary-accent);
+            cursor: pointer;
+            border: none;
         }
 
         .settings-divider {
             height: 1px;
             background-color: rgba(0,0,0,0.08);
             margin: 12px 0;
+            width: 100%;
         }
 
-        /* Full-Width Switcher Toggles */
+        /* Toggle Switches */
         .switch {
             position: relative;
             display: inline-block;
             width: 46px;
             height: 24px;
+            flex-shrink: 0;
         }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider {
@@ -211,7 +250,7 @@
         input:checked + .slider { background-color: var(--secondary-accent); }
         input:checked + .slider:before { transform: translateX(22px); }
 
-        /* 👁️ Robust ADHD Reading Mask System Panels */
+        /* 👁️ High-Performance Fixed Position Reading Mask System */
         .mask-overlay {
             display: none;
             position: fixed;
@@ -299,7 +338,7 @@
 </head>
 <body>
 
-    <!-- Split Viewports configuration for completely reliable background occlusion -->
+    <!-- Target Mask Overlays -->
     <div id="maskTop" class="mask-overlay"></div>
     <div id="maskBottom" class="mask-overlay"></div>
 
@@ -425,7 +464,6 @@
                         <li>Idiom crossword builders</li>
                     </ul>
                 </div>
-                <!-- Connected destination target link -->
                 <a href="game.html" class="button game-btn">Go to Game Zone</a>
             </div>
 
@@ -459,7 +497,7 @@
             document.body.classList.toggle('dyslexic-font', e.target.checked);
         });
 
-        // 📊 Math Maps representing 5 distinct intervals (0% to 100% or equivalents)
+        // Sliders Math Interval Arrays
         const saturationMap = { 1: "0%", 2: "50%", 3: "100%", 4: "150%", 5: "200%" };
         document.getElementById('saturationSlider').addEventListener('input', (e) => {
             const val = saturationMap[e.target.value];
@@ -487,25 +525,29 @@
             document.documentElement.style.setProperty('--base-letter-spacing', letterMap[e.target.value]);
         });
 
-        // 👁️ High Stability Dual-Panel Reading Focus Mask Engine
+        // 👁️ Scroll-Proof Viewport Mask Engine
         const maskTop = document.getElementById('maskTop');
         const maskBottom = document.getElementById('maskBottom');
         const readingMaskCheckbox = document.getElementById('readingMaskCheckbox');
+
+        function updateMask(clientY) {
+            if (!readingMaskCheckbox.checked) return;
+            const gapHalfHeight = 35; 
+            
+            maskTop.style.height = `${Math.max(0, clientY - gapHalfHeight)}px`;
+            maskBottom.style.top = `${clientY + gapHalfHeight}px`;
+            maskBottom.style.height = `${window.innerHeight - (clientY + gapHalfHeight)}px`;
+        }
 
         readingMaskCheckbox.addEventListener('change', (e) => {
             const displayMode = e.target.checked ? 'block' : 'none';
             maskTop.style.display = displayMode;
             maskBottom.style.display = displayMode;
+            if(e.target.checked) updateMask(window.innerHeight / 2); 
         });
 
         window.addEventListener('mousemove', (e) => {
-            if (readingMaskCheckbox.checked) {
-                const cursorY = e.clientY;
-                const gapHalfHeight = 35; // Total dynamic text track target view window space width (70px total)
-
-                maskTop.style.height = `${Math.max(0, cursorY - gapHalfHeight)}px`;
-                maskBottom.style.top = `${cursorY + gapHalfHeight}px`;
-            }
+            updateMask(e.clientY);
         });
     </script>
 </body>
