@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nicky's English | Game Zone</title>
+  <style>
+    @import url('https://unpkg.com/@fontsource/opendyslexic/index.css');
+
+    :root {
+      --bg-color: #F7F5EE;
+      --text-color: #2D333B;
+      --primary-accent: #7B2CBF;
+      --writing-accent: #4A6C6F;
+      --secondary-accent: #D97D54;
+      --game-accent: #7B2CBF;
+      --card-bg: #FFFFFF;
+      --header-text: #F7F5EE;
+      --footer-bg: #E8E5DA;
+      --list-text: #555555;
+      --base-font-size: 16px;
+      --base-line-spacing: 1.6;
+      --base-letter-spacing: 0px;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1C2128;
+      --text-color: #F0F3F6;
+      --primary-accent: #629296;
+      --secondary-accent: #E38E68;
+      --game-accent: #9D4EDD;
+      --card-bg: #22272E;
+      --header-text: #F0F3F6;
+      --footer-bg: #2D333B;
+      --list-text: #ADB5BD;
+    }
+
+    [data-contrast="high"] {
+      --bg-color: #000000 !important;
+      --text-color: #FFFFFF !important;
+      --card-bg: #111111 !important;
+      --primary-accent: #00FFFF !important;
+      --secondary-accent: #FFFF00 !important;
+      --game-accent: #FF00FF !important;
+      --header-text: #FFFFFF !important;
+      --footer-bg: #111111 !important;
+      --list-text: #FFFFFF !important;
+    }
+
+    * { box-sizing: border-box; }
+
+    .dyslexic-font {
+      font-family: 'OpenDyslexic', 'Segoe UI', sans-serif !important;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      font-size: var(--base-font-size);
+      line-height: var(--base-line-spacing);
+      letter-spacing: var(--base-letter-spacing);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Georgia', serif;
+      color: var(--primary-accent);
+    }
+
+    .dyslexic-font h1,
+    .dyslexic-font h2,
+    .dyslexic-font h3 {
+      font-family: 'OpenDyslexic', sans-serif !important;
+    }
+
+    header {
+      position: relative;
+      background-color: var(--primary-accent);
+      color: var(--header-text);
+      padding: 3rem 5%;
+      text-align: center;
+      border-bottom: 5px solid var(--secondary-accent);
+    }
+
+    header h1 {
+      color: var(--header-text);
+      margin: 0 0 1.5rem 0;
+      font-size: 3rem;
+    }
+
+    .intro-text {
+      max-width: 850px;
+      margin: 0 auto;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 10px;
+      font-size: 1.05rem;
+    }
+
+    .intro-text h2 {
+      color: #FFFFFF;
+      margin-top: 0;
+      font-size: 1.6rem;
+    }
+
+    .intro-text p {
+      margin: 0.5rem 0 0;
+      line-height: 1.7;
+    }
+
+    .tag-summary {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--header-text);
+    }
+
+    .tag-summary strong {
+      font-weight: bold;
+    }
+
+    .tag-summary span {
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      color: #0f4d81;
+    }
+
+    /* Settings menu (copied from index) */
+    .settings-container {
+      position: absolute;
+      top: 20px;
+      right: 5%;
+      display: inline-block;
+    }
+
+    .settings-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--header-text);
+      font-size: 0.95rem;
+      padding: 8px 16px;
+      border-radius: 18px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .settings-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .settings-dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 45px;
+      background-color: var(--card-bg);
+      width: 272px;
+      max-width: min(90vw, 272px);
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      border-radius: 12px;
+      z-index: 1000;
+      padding: 14px 0;
+      border: 1px solid rgba(0,0,0,0.08);
+      text-align: left;
+    }
+
+    .settings-dropdown.show { display: block; }
+
+    .settings-section-title {
+      padding: 6px 16px;
+      font-weight: bold;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      color: var(--secondary-accent);
+      letter-spacing: 1px;
+    }
+
+    .settings-item {
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-color);
+      font-size: 0.92rem;
+      width: 100%;
+    }
+
+    .settings-item span:first-child {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .settings-item.slider-row {
+      display: block;
+      padding-top: 8px;
+      padding-bottom: 12px;
+    }
+
+    .settings-item.slider-row label {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      width: 100%;
+    }
+
+    .settings-item.slider-row label span:first-child {
+      font-weight: 600;
+    }
+
+    .settings-item label span:last-child {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      white-space: nowrap;
+    }
+
+    .step-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #ccc;
+      margin: 0;
+      accent-color: var(--secondary-accent);
+      display: block;
+    }
+
+    .step-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--secondary-accent);
+      cursor: pointer;
+      border: none;
+    }
+
+    .step-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--secondary-accent);
+      cursor: pointer;
+      border: none;
+    }
+
+    .settings-divider {
+      height: 1px;
+      background-color: rgba(0,0,0,0.08);
+      margin: 10px 0;
+      width: 100%;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: #ccc;
+      transition: .3s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider { background-color: var(--secondary-accent); }
+    input:checked + .slider:before { transform: translateX(20px); }
+
+    .mask-overlay {
+      display: none;
+      position: fixed;
+      left: 0;
+      width: 100vw;
+      background: rgba(0, 0, 0, 0.5);
+      pointer-events: none;
+      z-index: 99999;
+    }
+
+    #maskTop { top: 0; height: 0; }
+    #maskBottom { bottom: 0; top: auto; height: 100vh; }
+
+    /* Filter bar */
+    .filter-bar {
+      max-width: 720px;
+      margin: 0 auto 1.5rem auto;
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .filter-label {
+      font-weight: bold;
+      color: #2D333B;
+    }
+
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-options label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #FFFFFF;
+      border: 1px solid rgba(0,0,0,0.15);
+      cursor: pointer;
+      color: #2D333B;
+    }
+
+    .filter-options input[type="checkbox"] {
+      accent-color: var(--game-accent);
+    }
+
+    .skills-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-top: 2rem;
+    }
+
+    .skill-box {
+      flex: 1;
+      min-width: 280px;
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      padding: 2.2rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      text-align: left;
+      border-top: 5px solid var(--primary-accent);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .skill-box.game { border-top: 5px solid var(--game-accent); }
+    .skill-box h2 { margin-top: 0; }
+    .skill-box.game h2 { color: var(--game-accent); }
+
+    .skill-box ul {
+      text-align: left;
+      margin-bottom: 1.2rem;
+      color: var(--list-text);
+    }
+
+    .skill-box p {
+      margin-bottom: 0.8rem;
+      color: var(--text-color);
+    }
+
+    /* Tag chips inside cards */
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 0.8rem;
+    }
+
+    .tag-chip {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(123, 44, 191, 0.07);
+      color: var(--game-accent);
+    }
+
+    .button {
+      display: inline-block;
+      background-color: var(--primary-accent); /* Writing Studio default */
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: background-color 0.2s, opacity 0.2s;
+    }
+
+    .button.game-btn { background-color: var(--game-accent); }
+    .button.speaking-btn { background-color: var(--secondary-accent); }
+    .button:hover { opacity: 0.9; }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      background-color: var(--footer-bg);
+      font-size: 0.9rem;
+      color: var(--list-text);
+    }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 2.3rem; margin-top: 2.5rem; }
+      .container { padding: 1.25rem; }
+      .filter-bar {
+        border-radius: 16px;
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="maskTop" class="mask-overlay"></div>
+  <div id="maskBottom" class="mask-overlay"></div>
+
+  <header>
+    <div class="settings-container">
+      <button class="settings-btn" id="settingsToggle" aria-label="Accessibility options">Settings</button>
+      <div class="settings-dropdown" id="settingsDropdown">
+        <div class="settings-section-title">Visual Styling</div>
+
+        <div class="settings-item">
+          <span>Dark Mode</span>
+          <label class="switch">
+            <input type="checkbox" id="darkModeCheckbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-item">
+          <span>High Contrast</span>
+          <label class="switch">
+            <input type="checkbox" id="highContrastCheckbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-item slider-row">
+          <label for="saturationSlider">
+            <span>Color Saturation</span>
+            <span id="saturationVal">100%</span>
+          </label>
+          <input type="range" id="saturationSlider" class="step-slider" min="1" max="5" value="3">
+        </div>
+
+        <div class="settings-divider"></div>
+        <div class="settings-section-title">Typography Layout</div>
+
+        <div class="settings-item">
+          <span>OpenDyslexic Font</span>
+          <label class="switch">
+            <input type="checkbox" id="dyslexicCheckbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-item slider-row">
+          <label for="sizeSlider">
+            <span>Text Resize</span>
+            <span id="sizeVal">100%</span>
+          </label>
+          <input type="range" id="sizeSlider" class="step-slider" min="1" max="5" value="1">
+        </div>
+
+        <div class="settings-item slider-row">
+          <label for="lineSpacingSlider">
+            <span>Line Spacing</span>
+            <span id="lineVal">Normal</span>
+          </label>
+          <input type="range" id="lineSpacingSlider" class="step-slider" min="1" max="5" value="2">
+        </div>
+
+        <div class="settings-item slider-row">
+          <label for="letterSpacingSlider">
+            <span>Letter Spacing</span>
+            <span id="letterVal">0px</span>
+          </label>
+          <input type="range" id="letterSpacingSlider" class="step-slider" min="1" max="5" value="1">
+        </div>
+
+        <div class="settings-divider"></div>
+        <div class="settings-section-title">Focus Assistance</div>
+
+        <div class="settings-item">
+          <span>Reading Mask</span>
+          <label class="switch">
+            <input type="checkbox" id="readingMaskCheckbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <h1>Nicky's English – Game Hub</h1>
+    <div class="nav-links" style="margin-top: 0.35rem; margin-bottom: 2rem; display: inline-flex; gap: 8px;">
+      <a href="index.html"
+         class="button"
+         style="background-color: #0f4d81; border-radius: 999px;">
+         Back to Home
+      </a>
+      <a href="writing.html"
+         class="button"
+         style="background-color: #4A6C6F; border-radius: 999px;">
+         Writing Studio
+      </a>
+      <a href="speaking.html"
+         class="button"
+         style="background-color: #D97D54; border-radius: 999px;">
+         Speaking Lounge
+      </a>
+    </div>
+
+    <div class="intro-text">
+      <h2>Learn through play in The Game Zone</h2>
+      <p>
+        Here you can explore different games for vocabulary, grammar, collocations, and listening.
+      </p>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2 class="section-title">Choose a game to play</h2>
+
+    <div class="filter-bar">
+      <span class="filter-label">Filter by skill:</span>
+      <div class="filter-options" id="tag-filters">
+        <label>
+          <input type="checkbox" value="Vocabulary" checked>
+          Vocabulary
+        </label>
+        <label>
+          <input type="checkbox" value="Grammar" checked>
+          Grammar
+        </label>
+        <label>
+          <input type="checkbox" value="Collocations" checked>
+          Collocations
+        </label>
+        <label>
+          <input type="checkbox" value="Listening" checked>
+          Listening
+        </label>
+      </div>
+    </div>
+
+    <div class="skills-section" id="game-list">
+      <div class="skill-box game" data-tags="Vocabulary">
+        <div>
+          <div class="card-tags">
+            <span class="tag-chip">Vocabulary</span>
+          </div>
+          <h2>The Vocabulary Quiz Lab</h2>
+          <p>Test your vocabulary knowledge with multiple-choice questions. You can also build your own quiz by adding your own word lists.</p>
+          <ul>
+            <li>Fixed quiz mode with common classroom vocabulary</li>
+            <li>Self-create mode for your own words and meanings</li>
+            <li>Instant feedback and score tracking</li>
+          </ul>
+        </div>
+        <div>
+          <a href="vocabulary-quiz.html" class="button game-btn">Play Vocabulary Quiz</a>
+        </div>
+      </div>
+
+      <div class="skill-box game" data-tags="Vocabulary,Spelling">
+        <div>
+          <div class="card-tags">
+            <span class="tag-chip">Vocabulary</span>
+          </div>
+          <h2>Word Builder: Spelling Challenge</h2>
+          <p>Unscramble jumbled letters to spell the target word before the timer finishes. Great for revising high-frequency words and tricky spelling patterns.</p>
+          <ul>
+            <li>Randomised letter jumbles from topic word lists</li>
+            <li>Optional timer for extra challenge</li>
+            <li>Teacher-made or learner-made word sets</li>
+          </ul>
+        </div>
+        <div>
+          <a href="#" class="button game-btn" aria-disabled="true">Coming soon</a>
+        </div>
+      </div>
+
+      <div class="skill-box game" data-tags="Vocabulary,Collocations">
+        <div>
+          <div class="card-tags">
+            <span class="tag-chip">Vocabulary</span>
+            <span class="tag-chip">Collocations</span>
+          </div>
+          <h2>Phrase Puzzle: Collocation Match</h2>
+          <p>Match verbs, adjectives and nouns to build natural English phrases, focusing on academic and vocational collocations.</p>
+          <ul>
+            <li>Drag-and-drop matching of collocation pairs</li>
+            <li>Topic sets (workplace, hospitality, IT, etc.)</li>
+            <li>Immediate correction and model phrases</li>
+          </ul>
+        </div>
+        <div>
+          <a href="#" class="button game-btn" aria-disabled="true">Coming soon</a>
+        </div>
+      </div>
+
+      <div class="skill-box game" data-tags="Grammar">
+        <div>
+          <div class="card-tags">
+            <span class="tag-chip">Grammar</span>
+          </div>
+          <h2>Grammar Blocks: Sentence Fixer</h2>
+          <p>Read short sentences and choose the correct version, or drag sentence blocks into the correct order to repair common grammar errors.</p>
+          <ul>
+            <li>Error-spotting with A/B sentence choices</li>
+            <li>Reordering blocks to fix word order</li>
+            <li>Focus on tenses, articles and prepositions</li>
+          </ul>
+        </div>
+        <div>
+          <a href="#" class="button game-btn" aria-disabled="true">Coming soon</a>
+        </div>
+      </div>
+
+      <div class="skill-box game" data-tags="Vocabulary">
+        <div>
+          <div class="card-tags">
+            <span class="tag-chip">Vocabulary</span>
+          </div>
+          <h2>Word Maze: Vocabulary Grid</h2>
+          <p>Find target words hidden in a letter grid. Ideal for quick topic revision or warm‑up activities in class.</p>
+          <ul>
+            <li>Letter grid generated in the browser</li>
+            <li>Highlight correct words when found</li>
+            <li>Timer or score-based modes</li>
+          </ul>
+        </div>
+        <div>
+          <a href="#" class="button game-btn" aria-disabled="true">Coming soon</a>
+        </div>
+      </div>
+
+      <div class="skill-box game" data-tags="Vocabulary,Grammar,Collocations">
+        <div>
+          <div class="card-tags">
+            <span class="tag-chip">Vocabulary</span>
+            <span class="tag-chip">Grammar</span>
+            <span class="tag-chip">Collocations</span>
+          </div>
+          <h2>Progress Quiz: Mixed Practice</h2>
+          <p>A mixed quiz that pulls questions from vocabulary, grammar and collocation sets, useful for end‑of‑unit review or self‑assessment.</p>
+          <ul>
+            <li>Randomised items from multiple skills</li>
+            <li>Simple progress score at the end</li>
+            <li>Reusable with different word banks</li>
+          </ul>
+        </div>
+        <div>
+          <a href="#" class="button game-btn" aria-disabled="true">Coming soon</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Designed by Nicky Yu from CWLCIVE with the assistance of AI.</p>
+  </footer>
+
+  <script>
+    // Tag filter
+    const filterContainer = document.getElementById('tag-filters');
+    const gameCards = document.querySelectorAll('.skill-box.game');
+
+    function applyFilter() {
+      const checked = Array.from(
+        filterContainer.querySelectorAll('input[type="checkbox"]:checked')
+      ).map(cb => cb.value);
+
+      gameCards.forEach(card => {
+        const tags = (card.dataset.tags || '')
+          .split(',')
+          .map(t => t.trim())
+          .filter(Boolean);
+
+        // If no tag is selected, show all games
+        if (checked.length === 0) {
+          card.style.display = '';
+          return;
+        }
+
+        const hasMatch = tags.some(t => checked.includes(t));
+        card.style.display = hasMatch ? '' : 'none';
+      });
+    }
+
+    filterContainer.addEventListener('change', applyFilter);
+    applyFilter();
+
+    // Settings menu JS (copied from index)
+    const settingsToggle = document.getElementById('settingsToggle');
+    const settingsDropdown = document.getElementById('settingsDropdown');
+
+    settingsToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      settingsDropdown.classList.toggle('show');
+    });
+
+    window.addEventListener('click', () => {
+      settingsDropdown.classList.remove('show');
+    });
+
+    settingsDropdown.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    document.getElementById('darkModeCheckbox').addEventListener('change', (e) => {
+      document.documentElement.setAttribute('data-theme', e.target.checked ? 'dark' : 'light');
+    });
+
+    document.getElementById('highContrastCheckbox').addEventListener('change', (e) => {
+      document.documentElement.setAttribute('data-contrast', e.target.checked ? 'high' : 'normal');
+    });
+
+    document.getElementById('dyslexicCheckbox').addEventListener('change', (e) => {
+      document.body.classList.toggle('dyslexic-font', e.target.checked);
+    });
+
+    const saturationMap = { 1: '0%', 2: '50%', 3: '100%', 4: '150%', 5: '200%' };
+    document.getElementById('saturationSlider').addEventListener('input', (e) => {
+      const val = saturationMap[e.target.value];
+      document.getElementById('saturationVal').innerText = val;
+      document.body.style.filter = `saturate(${val})`;
+    });
+
+    const sizeMap = { 1: '16px', 2: '24px', 3: '32px', 4: '40px', 5: '48px' };
+    const sizePctMap = { 1: '100%', 2: '150%', 3: '200%', 4: '250%', 5: '300%' };
+    document.getElementById('sizeSlider').addEventListener('input', (e) => {
+      document.getElementById('sizeVal').innerText = sizePctMap[e.target.value];
+      document.documentElement.style.setProperty('--base-font-size', sizeMap[e.target.value]);
+    });
+
+    const lineMap = { 1: '1.2', 2: '1.6', 3: '2.0', 4: '2.4', 5: '2.8' };
+    const lineTextMap = { 1: 'Tight', 2: 'Normal', 3: 'Relaxed', 4: 'Wide', 5: 'Extra Wide' };
+    document.getElementById('lineSpacingSlider').addEventListener('input', (e) => {
+      document.getElementById('lineVal').innerText = lineTextMap[e.target.value];
+      document.documentElement.style.setProperty('--base-line-spacing', lineMap[e.target.value]);
+    });
+
+    const letterMap = { 1: '0px', 2: '2px', 3: '4px', 4: '6px', 5: '8px' };
+    document.getElementById('letterSpacingSlider').addEventListener('input', (e) => {
+      document.getElementById('letterVal').innerText = letterMap[e.target.value];
+      document.documentElement.style.setProperty('--base-letter-spacing', letterMap[e.target.value]);
+    });
+
+    const maskTop = document.getElementById('maskTop');
+    const maskBottom = document.getElementById('maskBottom');
+    const readingMaskCheckbox = document.getElementById('readingMaskCheckbox');
+
+    function updateMask(clientY) {
+      if (!readingMaskCheckbox.checked) return;
+      const gapHalfHeight = 35;
+      maskTop.style.height = Math.max(0, clientY - gapHalfHeight) + 'px';
+      maskBottom.style.top = (clientY + gapHalfHeight) + 'px';
+      maskBottom.style.height = (window.innerHeight - clientY - gapHalfHeight) + 'px';
+    }
+
+    readingMaskCheckbox.addEventListener('change', (e) => {
+      const displayMode = e.target.checked ? 'block' : 'none';
+      maskTop.style.display = displayMode;
+      maskBottom.style.display = displayMode;
+      if (e.target.checked) updateMask(window.innerHeight / 2);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      updateMask(e.clientY);
+    });
+  </script>
+</body>
+</html>

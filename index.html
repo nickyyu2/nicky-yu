@@ -10,7 +10,8 @@
         :root {
             --bg-color: #F7F5EE;
             --text-color: #2D333B;
-            --primary-accent: #4A6C6F;
+            --primary-accent: #0F4D81;
+            --writing-accent: #4A6C6F;
             --secondary-accent: #D97D54;
             --game-accent: #7B2CBF;
             --card-bg: #FFFFFF;
@@ -26,6 +27,7 @@
             --bg-color: #1C2128;
             --text-color: #F0F3F6;
             --primary-accent: #629296;
+            --writing-accent: #537E82;
             --secondary-accent: #E38E68;
             --game-accent: #9D4EDD;
             --card-bg: #22272E;
@@ -39,6 +41,7 @@
             --text-color: #FFFFFF !important;
             --card-bg: #111111 !important;
             --primary-accent: #00FFFF !important;
+            --writing-accent: #00FFFF !important;
             --secondary-accent: #FFFF00 !important;
             --game-accent: #FF00FF !important;
             --header-text: #FFFFFF !important;
@@ -372,9 +375,13 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        .skill-box.writing { border-top: 5px solid var(--writing-accent); }
         .skill-box.speaking { border-top: 5px solid var(--secondary-accent); }
         .skill-box.game { border-top: 5px solid var(--game-accent); }
+        
         .skill-box h2 { margin-top: 0; }
+        .skill-box.writing h2 { color: var(--writing-accent); }
+        .skill-box.speaking h2 { color: var(--secondary-accent); }
         .skill-box.game h2 { color: var(--game-accent); }
 
         .skill-box ul {
@@ -394,6 +401,7 @@
             transition: background-color 0.2s, opacity 0.2s;
         }
 
+        .button.writing-btn { background-color: var(--writing-accent); }
         .button.speaking-btn { background-color: var(--secondary-accent); }
         .button.game-btn { background-color: var(--game-accent); }
         .button:hover { opacity: 0.9; }
@@ -527,7 +535,7 @@
         <h2 class="section-title">What would you like to practice today?</h2>
 
         <div class="skills-section">
-            <div class="skill-box">
+            <div class="skill-box writing">
                 <div>
                     <h2>The Writing Studio</h2>
                     <p>Sharpen your pen. Practice everything from writing basic emails to structuring complex evaluation report.</p>
@@ -538,13 +546,13 @@
                     </ul>
                 </div>
                 <div>
-                    <a href="writing.html" class="button">Go to Writing Studio</a>
+                    <a href="writing.html" class="button writing-btn">Go to Writing Studio</a>
                 </div>
             </div>
 
             <div class="skill-box speaking">
                 <div>
-                    <h2 style="color: var(--secondary-accent);">The Speaking Lounge</h2>
+                    <h2>The Speaking Lounge</h2>
                     <p>Find your voice. Overcome the fear of speaking with guided exercises and conversation simulations.</p>
                     <ul>
                         <li>Pronunciation drills</li>
