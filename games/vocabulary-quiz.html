@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nicky's English - Vocabulary Quiz</title>
-  <!-- Include SheetJS library for generating and reading Excel files client-side -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
     @import url('https://unpkg.com/@fontsource/opendyslexic/index.css');
@@ -311,7 +310,7 @@
       font-size: 0.9rem;
     }
     .custom-summary {
-      margin-top: 16px;
+      margin-top: 166px;
       padding-top: 10px;
       border-top: 1px solid var(--border);
       display: flex;
@@ -406,7 +405,7 @@
     .settings-divider { height: 1px; background-color: rgba(0,0,0,0.08); margin: 10px 0; width: 100%; }
     .switch { position: relative; display: inline-block; width: 42px; height: 22px; flex-shrink: 0; }
     .switch input { opacity: 0; width: 0; height: 0; }
-    .slider { position: absolute; cursor: pointer; inset: 0; background-color: #ccc; transition: .3s; border-radius: 24px; }
+    .slider position: absolute; cursor: pointer; inset: 0; background-color: #ccc; transition: .3s; border-radius: 24px; }
     .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
     input:checked + .slider { background-color: var(--secondary-accent); }
     input:checked + .slider:before { transform: translateX(20px); }
@@ -509,22 +508,22 @@
 
     <h1>Nicky's English – Vocabulary Quiz</h1>
     <div class="nav-links" style="margin-top: 0.35rem; margin-bottom: 2rem; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
-      <a href="game.html"
+      <a href="../game.html"
          class="button"
          style="background-color: #7B2CBF; border-radius: 999px;">
          Back to Game Hub
       </a>
-      <a href="index.html"
+      <a href="../index.html"
          class="button"
          style="background-color: #0f4d81; border-radius: 999px;">
          Back to Home
       </a>
-      <a href="writing.html"
+      <a href="../writing.html"
          class="button"
          style="background-color: #4A6C6F; border-radius: 999px;">
          Writing Studio
       </a>
-      <a href="speaking.html"
+      <a href="../speaking.html"
          class="button"
          style="background-color: #D97D54; border-radius: 999px;">
          Speaking Lounge
@@ -551,7 +550,6 @@
         <div id="score">Score: 0</div>
       </div>
 
-      <!-- Practice quiz panel -->
       <div id="practice-panel" class="tab-panel">
         <div id="quiz-area">
           <div class="question-box">
@@ -575,7 +573,6 @@
         </div>
       </div>
 
-      <!-- Custom quiz builder panel -->
       <div id="custom-panel" class="tab-panel hidden">
         <h2>Create your quiz via Excel</h2>
         <p class="muted">Download our official template spreadsheet, input your custom vocabulary words along with 4 potential answer choices, and upload it back to see them load instantly.</p>
@@ -597,7 +594,6 @@
           <div id="upload-status-msg" class="muted" style="margin-top: 10px; font-weight: bold;"></div>
         </div>
 
-        <!-- Preview Loaded Vocabulary Words -->
         <div id="preview-container" class="hidden">
           <h3 style="margin-bottom: 8px;">Loaded Vocabulary Words Preview</h3>
           <div class="preview-box">
